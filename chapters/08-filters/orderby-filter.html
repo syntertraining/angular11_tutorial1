@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+        <script src="/res/frameworks/js/angular.min.js"></script>
+    <script>
+    loadme();
+        function loadme()
+        {
+
+            var loc = window.location.pathname;
+            var str = loc;
+            var depth = 2;
+            var pos = nthIndex(str, "/", depth);
+            var url = str.substring(0, pos + 1);
+            var prefix = "http://" + window.location.host + url;
+                //alert(prefix);
+                
+                var js = new Array();                  
+                js.push(url+"res/frameworks/js/bootstrap.min.js");  
+                js.push(url+"res/frameworks/js/jquery.min.js");  
+                js.push(url+"res/frameworks/js/jquery.slim.min.js");  
+                js.push(url+"res/frameworks/js/jquery-ui.min.js");  
+                js.push(url+"res/frameworks/js/npm.js");
+                js.push(url+"app.js");
+                for (var i = 0; i < js.length; i++) {
+                    loadjscssfile(js[i], "js")
+                }
+                var css = new Array();
+
+                css[0] = prefix + "res/css/home/index.css";
+                
+                for (var i = 0; i < css.length; i++) {
+                    loadjscssfile(css[i], "css")
+                }
+                              
+            }
+            function nthIndex(str, pat, n)
+            {
+                var L = str.length, i = -1;
+                while (n-- && i++ < L)
+                {
+                    i = str.indexOf(pat, i);
+                    if (i < 0)
+                        break;
+                }
+                return i;
+            }
+            function loadjscssfile(filename, filetype) {
+                if (filetype == "js") { //if filename is a external JavaScript file
+                    var fileref = document.createElement('script')
+                    fileref.setAttribute("type", "text/javascript")
+                    fileref.setAttribute("src", filename)
+                }
+                else if (filetype == "css") { //if filename is an external CSS file
+                    var fileref = document.createElement("link")
+                    fileref.setAttribute("rel", "stylesheet")
+                    fileref.setAttribute("type", "text/css")
+                    fileref.setAttribute("href", filename)
+                }
+                if (typeof fileref != "undefined")
+                    document.getElementsByTagName("head")[0].appendChild(fileref)
+            }
+
+            
+        </script>
+        
+   
+
+</head>
+
+<body ng-app="myApp" >
+
+<h1>AngularJS orderBy Filter Demo: </h1>
+    <div ng-controller="myController">
+        <select ng-model="SortOrder">
+            <option value="+name">Name (asc)</option>
+            <option value="-name">Name (dec)</option>
+            <option value="+phone">Phone (asc)</option>
+            <option value="-phone">Phone (dec)</option>
+        </select>
+        <ul ng-repeat="person in persons | orderBy:SortOrder">
+            <li>{{person.name}} - {{person.phone}}</li>
+        </ul>
+    </div>
+    <script>
+        var myApp = angular.module('myApp', []);
+        
+        myApp.controller("myController", function ($scope) {
+        
+            $scope.persons = [{ name: 'John', phone: '512-455-1276' },
+                         { name: 'Mary', phone: '899-333-3345' },
+                         { name: 'Mike', phone: '511-444-4321' },
+                         { name: 'Bill', phone: '145-788-5678' },
+                         { name: 'Ram', phone: '433-444-8765' },
+                         { name: 'Steve', phone: '218-345-5678' }]
+            
+            $scope.SortOrder = '+name';
+        });
+    </script>
+
+
+</body>
+</html>
