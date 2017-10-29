@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="/res/frameworks/js/jquery.min.js"></script>
+    <script src="/res/frameworks/js/angular.min.js"></script>
+    <script src="/res/frameworks/js/angular-ui-router.min.js"></script>
+    <script src="app.js"></script>
+    <link href="/res/frameworks/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body ng-app="routerApp">
+
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">AngularUI Router</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="home">Home</a></li>
+        <li><a ui-sref="about">About</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+    <div ui-view></div>
+
+</div>
+    
+</body>
+</html>
